@@ -1,0 +1,2 @@
+﻿ClickForensics.Quartz.Jobs.dll
+Quartz.dll
