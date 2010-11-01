@@ -39,7 +39,7 @@ namespace ClickForensics.Quartz.Manager
                 Assembly assembly = Assembly.LoadFile(Environment.CurrentDirectory + "\\" + line);
                 foreach (Type type in assembly.GetTypes())
                 {
-                    if (typeof(IJob).IsAssignableFrom(type))
+                    if (typeof(IJob).IsAssignableFrom(type) && type.IsClass)
                     {
                         jobTypes.Add(type.FullName, assembly.GetName().Name);
                     }

@@ -123,13 +123,20 @@ namespace ClickForensics.Quartz.Manager
             DataTable table = new DataTable();
             table.Columns.Add("JobName", typeof(string));
             table.Columns.Add("RunTime", typeof(int));
-            IList jobs = GetScheduler().GetCurrentlyExecutingJobs();
-            foreach (JobExecutionContext context in jobs)
+            try
             {
-                DataRow row = table.NewRow();
-                row["JobName"] = context.JobDetail.Name;
-                row["RunTime"] = (DateTime.Now.ToUniversalTime() - (DateTime)context.FireTimeUtc).TotalMinutes;
-                table.Rows.Add(row);
+                IList jobs = GetScheduler().GetCurrentlyExecutingJobs();
+                foreach (JobExecutionContext context in jobs)
+                {
+                    DataRow row = table.NewRow();
+                    row["JobName"] = context.JobDetail.Name;
+                    row["RunTime"] = (DateTime.Now.ToUniversalTime() - (DateTime)context.FireTimeUtc).TotalMinutes;
+                    table.Rows.Add(row);
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: Let the user know we couldn't load the running jobs.
             }
 
             return table;

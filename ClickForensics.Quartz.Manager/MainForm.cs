@@ -144,7 +144,7 @@ namespace ClickForensics.Quartz.Manager
                 jobGroupsTreeView.Nodes[0].Expand();
                 jobGroupsNode.Expand();
 
-                StripStatusLabel_Job_Groups.Text = System.DateTime.Now.ToString("yyyy.MM.dd HH:mm.ss");
+                StripStatusLabel_Job_Groups.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm.ss");
 
             }
             finally
@@ -155,7 +155,7 @@ namespace ClickForensics.Quartz.Manager
 
         }
 
-        private void jobDetailsToggle(System.Boolean isVisible)
+        private void jobDetailsToggle(bool isVisible)
         {
             if (isVisible == false)
             {
@@ -241,10 +241,10 @@ namespace ClickForensics.Quartz.Manager
                 foreach (DataRow row in table.Rows)
                 {
                     //JobName JobDuration
-                    ListViewItem item = new ListViewItem(new string[] { System.Convert.ToString(row["JobName"]), System.Convert.ToString(row["Runtime"]) });
+                    ListViewItem item = new ListViewItem(new string[] { Convert.ToString(row["JobName"]), Convert.ToString(row["Runtime"]) });
                     listView_RunningJobs.Items.Add(item);
                 }
-                StripStatusLabel_Jobs_Refresh_date.Text = System.DateTime.Now.ToString("yyyy.MM.dd HH:mm.ss");
+                StripStatusLabel_Jobs_Refresh_date.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm.ss");
 
 
                 //reset the timer ( documentation not clear if .stop = restart @ 0 in timing, but changing the interval sure should do that. )
@@ -351,16 +351,6 @@ namespace ClickForensics.Quartz.Manager
             setPauseButtonText();
         }
 
-        private void assembliesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void configureToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             TriggerNode node = (TriggerNode)jobGroupsTreeView.SelectedNode;
@@ -370,18 +360,6 @@ namespace ClickForensics.Quartz.Manager
             {
                 Scheduler.GetScheduler().RescheduleJob(node.Trigger.Name, node.Trigger.Group, form.Trigger);
                 loadJobGroups();
-            }
-        }
-
-        private void deleteThemAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (var job in Scheduler.GetScheduler().GetJobNames("Cube"))
-            {
-                if (job.Contains("CreateCubeFor"))
-                {
-
-                    Scheduler.GetScheduler().DeleteJob(job, "Cube");
-                }
             }
         }
 
@@ -397,16 +375,6 @@ namespace ClickForensics.Quartz.Manager
         private void timer_Refresh_Running_Jobs_Tick(object sender, EventArgs e)
         {
             updateRunningJobs();
-        }
-
-        private void runningJobsListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView_RunningJobs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
