@@ -1,0 +1,8 @@
+GETTING STARTED
+We don't have an installer or binary release yet, so for now you will have to download the source code, build it and run it. 
+
+CUSTOM JOBS
+You must let the program know which assemblies contain your jobs. You do so by editing the JobAssemblies.txt file and adding your assemblies there. Only jobs from the assemblies listed in that file will get loaded.
+
+LICENSE
+This code is released under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html).
