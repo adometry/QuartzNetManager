@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickForensics.Quartz.Manag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickForensics.Quartz.Manager.Tests", "ClickForensics.Quartz.Manager.Tests\ClickForensics.Quartz.Manager.Tests.csproj", "{B8B682CC-3E41-4810-86BF-B6728FB26D3A}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ClickForensics.Quartz.Manager.Setup", "ClickForensics.Quartz.Manager.Setup\ClickForensics.Quartz.Manager.Setup.vdproj", "{06504FA3-020F-4CA2-8438-8295E23560E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,8 @@ Global
 		{B8B682CC-3E41-4810-86BF-B6728FB26D3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8B682CC-3E41-4810-86BF-B6728FB26D3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8B682CC-3E41-4810-86BF-B6728FB26D3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06504FA3-020F-4CA2-8438-8295E23560E9}.Debug|Any CPU.ActiveCfg = Debug
+		{06504FA3-020F-4CA2-8438-8295E23560E9}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
