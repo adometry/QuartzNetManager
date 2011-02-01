@@ -40,12 +40,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_83338C49D0D67DD7EF205F46DAE10460"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_22F9343A882E45B59179759884B708BD"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -53,6 +47,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A642F7ED05F92289AD6A8C4EF5BE6CEB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_83338C49D0D67DD7EF205F46DAE10460"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -73,6 +73,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -89,6 +97,27 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -195,6 +224,17 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_0FC88F825EDD4368B5833CF24EA9731E"
+                    {
+                    "Name" = "8:Quartz.Net Manager"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_DDDD3FF22F9043049C3D773230BB889A"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_48E4411F823C4182AA93CB1DEE5A85DE"
@@ -237,7 +277,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Quartz.Net Manager"
         "ProductCode" = "8:{35E7E363-C413-4BCA-B0D6-1E0D7277F2EB}"
-        "PackageCode" = "8:{E6C664D3-E69B-456A-A4AD-D6312897A3C8}"
+        "PackageCode" = "8:{E292DFAA-0752-4BA9-945D-F33FD0742798}"
         "UpgradeCode" = "8:{41236195-C6AD-462D-934D-034CDFCDB6E0}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -357,6 +397,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_98F4ED1F58E0497F82C26F67F86237D9"
+            {
+            "Name" = "8:Quartz.Net Manager"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_22F9343A882E45B59179759884B708BD"
+            "Folder" = "8:_0FC88F825EDD4368B5833CF24EA9731E"
+            "WorkingFolder" = "8:_D7658F850B314942942D9354F682D7DA"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
@@ -758,7 +812,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_22F9343A882E45B59179759884B708BD"
             {
-            "SourcePath" = "8:..\\ClickForensics.Quartz.Manager\\obj\\Debug\\ClickForensics.Quartz.Manager.exe"
+            "SourcePath" = "8:..\\ClickForensics.Quartz.Manager\\obj\\Release\\ClickForensics.Quartz.Manager.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D7658F850B314942942D9354F682D7DA"

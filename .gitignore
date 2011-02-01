@@ -2,3 +2,5 @@ obj/
 bin/
 *.user
 *.suo
+ClickForensics.Quartz.Manager.Setup/Release/
+_ReSharper.Clickforensics.Quartz/
