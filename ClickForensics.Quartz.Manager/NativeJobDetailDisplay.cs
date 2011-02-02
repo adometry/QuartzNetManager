@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Quartz;
+using Quartz.Impl;
 
 namespace ClickForensics.Quartz.Manager
 {
@@ -21,8 +22,8 @@ namespace ClickForensics.Quartz.Manager
         void NativeJobDetailDisplay_Load(object sender, EventArgs e)
         {
             lblDescription.Text = _detail.Description;
-            lblGroup.Text = _detail.Group;
-            lblName.Text = _detail.Name;
+			lblGroup.Text = _detail.Key.Group;
+			lblName.Text = _detail.Key.Name;
             loadJobDataMap();
         }
 
@@ -33,12 +34,12 @@ namespace ClickForensics.Quartz.Manager
                 jobDataListView.Items.Add(new ListViewItem(new string[] { item, _detail.JobDataMap.Get(item).ToString() }));
             }
         }
-        public NativeJobDetailDisplay(JobDetail detail)
+        public NativeJobDetailDisplay(IJobDetail detail)
             : this()
         {
             _detail = detail;
         }
-        private JobDetail _detail;
+		private IJobDetail _detail;
 
     }
 }

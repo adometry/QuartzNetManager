@@ -7,48 +7,49 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Quartz;
+using Quartz.Impl.Triggers;
 
 namespace ClickForensics.Quartz.Manager
 {
-    public partial class CronTriggerDisplay : UserControl
-    {
-        public CronTriggerDisplay()
-        {
-            InitializeComponent();
-            this.Load += new EventHandler(CronTriggerDisplay_Load);
-        }
+	public partial class CronTriggerDisplay : UserControl
+	{
+		public CronTriggerDisplay()
+		{
+			InitializeComponent();
+			this.Load += new EventHandler(CronTriggerDisplay_Load);
+		}
 
-        void CronTriggerDisplay_Load(object sender, EventArgs e)
-        {
-            txtCronExpression.Text = _trigger.CronExpressionString;
-            lblDescription.Text = _trigger.Description;
-            lblGroup.Text = _trigger.Group;
-            lblName.Text = _trigger.Name;
-            if (_trigger.GetNextFireTimeUtc().HasValue)
-            {
-                lblNextFireTime.Text = _trigger.GetNextFireTimeUtc().Value.ToLocalTime().ToString();
-            }
-            else
-            {
-                lblNextFireTime.Text = "Unknown";
-            }
+		void CronTriggerDisplay_Load(object sender, EventArgs e)
+		{
+			txtCronExpression.Text = _trigger.CronExpressionString;
+			lblDescription.Text = _trigger.Description;
+			lblGroup.Text = _trigger.Group;
+			lblName.Text = _trigger.Name;
+			if (_trigger.GetNextFireTimeUtc().HasValue)
+			{
+				lblNextFireTime.Text = _trigger.GetNextFireTimeUtc().Value.ToLocalTime().ToString();
+			}
+			else
+			{
+				lblNextFireTime.Text = "Unknown";
+			}
 
-            if (_trigger.GetPreviousFireTimeUtc().HasValue)
-            {
-                lblPreviousFireTime.Text = _trigger.GetPreviousFireTimeUtc().Value.ToLocalTime().ToString();
-            }
-            else
-            {
-                lblPreviousFireTime.Text = "Unknown";
-            }
-        }
-        public CronTriggerDisplay(CronTrigger trigger)
-            : this()
-        {
-            _trigger = trigger;
+			if (_trigger.GetPreviousFireTimeUtc().HasValue)
+			{
+				lblPreviousFireTime.Text = _trigger.GetPreviousFireTimeUtc().Value.ToLocalTime().ToString();
+			}
+			else
+			{
+				lblPreviousFireTime.Text = "Unknown";
+			}
+		}
+		public CronTriggerDisplay(CronTriggerImpl trigger)
+			: this()
+		{
+			_trigger = trigger;
 
-        }
+		}
 
-        private CronTrigger _trigger;
-    }
+		private CronTriggerImpl _trigger;
+	}
 }

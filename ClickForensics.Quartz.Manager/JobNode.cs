@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Quartz;
+using Quartz.Impl;
 
 namespace ClickForensics.Quartz.Manager
 {
-    public class JobNode : TreeNode
-    {
-        public JobNode(JobDetail jobDetail)
-            : base()
-        {
-            this.Text = jobDetail.Name;
-            Detail = jobDetail;
-        }
-        public JobDetail Detail { get; private set; }
+	public class JobNode : TreeNode
+	{
+		public JobNode(IJobDetail jobDetail)
+			: base()
+		{
+			this.Text = jobDetail.Key.Name;
+			Detail = jobDetail;
+		}
+		public IJobDetail Detail { get; private set; }
 
-    }
+	}
 }
