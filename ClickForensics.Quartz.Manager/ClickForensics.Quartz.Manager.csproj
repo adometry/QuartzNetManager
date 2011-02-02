@@ -54,8 +54,9 @@
     <Reference Include="Common.Logging">
       <HintPath>..\lib\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Quartz">
-      <HintPath>..\lib\Quartz.dll</HintPath>
+    <Reference Include="Quartz, Version=2.0.0.29445, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\quartznet\build\4.0\Debug\Quartz.Server\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

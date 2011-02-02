@@ -147,14 +147,16 @@ namespace ClickForensics.Quartz.Manager
 		public void BackupToFile(System.IO.FileInfo file)
 		{
 			IScheduler scheduler = GetScheduler();
-			string[] jobGroupNames = scheduler.JobGroupNames;
+			var jobGroupNames = scheduler.GetJobGroupNames();
 			List<IJobDetail> jobDetails = new List<IJobDetail>();
 			foreach (var jobGroup in jobGroupNames)
 			{
-				string[] jobNames = scheduler.GetJobNames(jobGroup);
-				foreach (var jobName in jobNames)
+				var groupMatcher = GroupMatcher<JobKey>.GroupContains(jobGroup);
+
+				var jobKeys = scheduler.GetJobKeys(groupMatcher);
+				foreach (var jobKey in jobKeys)
 				{
-					jobDetails.Add(scheduler.GetJobDetail(jobName, jobGroup));
+					jobDetails.Add(scheduler.GetJobDetail(jobKey));
 				}
 			}
 			writeToFile(file, jobDetails);
@@ -173,16 +175,17 @@ namespace ClickForensics.Quartz.Manager
 						, new XAttribute("overwrite-existing-jobs", "true")
 						)
 					);
-				foreach (JobDetail detail in jobDetails)
+				foreach (IJobDetail detail in jobDetails)
 				{
 					doc.Root.Add(
 							new XElement(ns + "job"
 							, new XElement(ns + "job-detail"
-							, new XElement(ns + "name", detail.Name)
-							, new XElement(ns + "group", detail.Group)
+							, new XElement(ns + "name", detail.Key.Name)
+							, new XElement(ns + "group", detail.Key.Group)
 							, new XElement(ns + "description", detail.Description)
 							, new XElement(ns + "job-type", detail.JobType.FullName + "," + detail.JobType.Assembly.FullName)
-							, new XElement(ns + "volatile", detail.Volatile)
+						//TODO: Apparently volatile is no longer available. Check.
+						//, new XElement(ns + "volatile", detail.Volatile)
 							, new XElement(ns + "durable", detail.Durable)
 							, new XElement(ns + "recover", detail.RequestsRecovery)
 							, getJobDataMap(ns, detail.JobDataMap)
@@ -246,8 +249,8 @@ namespace ClickForensics.Quartz.Manager
 		private void addCommonTriggerData(XNamespace ns, XElement rootTriggerElement, AbstractTrigger trigger)
 		{
 			rootTriggerElement.Add(
-				new XElement(ns + "name", trigger.Name)
-				, new XElement(ns + "group", trigger.Group)
+				new XElement(ns + "name", trigger.Key.Name)
+				, new XElement(ns + "group", trigger.Key.Group)
 				, new XElement(ns + "description", trigger.Description)
 				, new XElement(ns + "misfire-instruction", getMisfireInstructionText(trigger))
 				//, new XElement(ns + "volatile", trigger.Volatile)

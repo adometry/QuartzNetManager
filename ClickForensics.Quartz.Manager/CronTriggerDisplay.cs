@@ -21,35 +21,35 @@ namespace ClickForensics.Quartz.Manager
 
 		void CronTriggerDisplay_Load(object sender, EventArgs e)
 		{
-			txtCronExpression.Text = _trigger.CronExpressionString;
-			lblDescription.Text = _trigger.Description;
-			lblGroup.Text = _trigger.Group;
-			lblName.Text = _trigger.Name;
-			if (_trigger.GetNextFireTimeUtc().HasValue)
+			txtCronExpression.Text = _Trigger.CronExpressionString;
+			lblDescription.Text = _Trigger.Description;
+			lblGroup.Text = _Trigger.Key.Group;
+			lblName.Text = _Trigger.Key.Name;
+			if (_Trigger.GetNextFireTimeUtc().HasValue)
 			{
-				lblNextFireTime.Text = _trigger.GetNextFireTimeUtc().Value.ToLocalTime().ToString();
+				lblNextFireTime.Text = _Trigger.GetNextFireTimeUtc().Value.ToLocalTime().ToString();
 			}
 			else
 			{
 				lblNextFireTime.Text = "Unknown";
 			}
 
-			if (_trigger.GetPreviousFireTimeUtc().HasValue)
+			if (_Trigger.GetPreviousFireTimeUtc().HasValue)
 			{
-				lblPreviousFireTime.Text = _trigger.GetPreviousFireTimeUtc().Value.ToLocalTime().ToString();
+				lblPreviousFireTime.Text = _Trigger.GetPreviousFireTimeUtc().Value.ToLocalTime().ToString();
 			}
 			else
 			{
 				lblPreviousFireTime.Text = "Unknown";
 			}
 		}
-		public CronTriggerDisplay(CronTriggerImpl trigger)
+		public CronTriggerDisplay(ICronTrigger trigger)
 			: this()
 		{
-			_trigger = trigger;
+			_Trigger = trigger;
 
 		}
 
-		private CronTriggerImpl _trigger;
+		private ICronTrigger _Trigger;
 	}
 }

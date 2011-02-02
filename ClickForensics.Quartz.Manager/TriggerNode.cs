@@ -10,12 +10,12 @@ namespace ClickForensics.Quartz.Manager
 {
 	public class TriggerNode : TreeNode
 	{
-		public TriggerNode(AbstractTrigger trigger)
+		public TriggerNode(ITrigger trigger)
 		{
-			Text = trigger.Name;
+			Text = Trigger.Key.Name;
 
 			Trigger = trigger;
 		}
-		public AbstractTrigger Trigger { get; set; }
+		public ITrigger Trigger { get; set; }
 	}
 }

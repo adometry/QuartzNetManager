@@ -12,6 +12,7 @@ using System.Net.Sockets;
 //using ClickForensics.Quartz.Jobs;
 using System.IO;
 using Quartz.Impl;
+using Quartz.Impl.Matchers;
 using Quartz.Impl.Triggers;
 
 namespace ClickForensics.Quartz.Manager
@@ -59,9 +60,9 @@ namespace ClickForensics.Quartz.Manager
 			{
 				btnPause.Enabled = true;
 				setPauseButtonText();
-				if (((TriggerNode)e.Node).Trigger is CronTrigger)
+				if (((TriggerNode)e.Node).Trigger is ICronTrigger)
 				{
-					pnlDetails.Controls.Add(new CronTriggerDisplay((CronTrigger)((TriggerNode)e.Node).Trigger));
+					pnlDetails.Controls.Add(new CronTriggerDisplay((ICronTrigger)((TriggerNode)e.Node).Trigger));
 					jobDetailsToggle(true);
 				}
 				btnEdit.Enabled = true;
@@ -76,9 +77,7 @@ namespace ClickForensics.Quartz.Manager
 		private void setPauseButtonText()
 		{
 			TriggerNode node = (TriggerNode)jobGroupsTreeView.SelectedNode;
-			string name = node.Trigger.Name;
-			string group = node.Trigger.Group;
-			if (Scheduler.GetScheduler().GetTriggerState(name, group) == TriggerState.Paused)
+			if (Scheduler.GetScheduler().GetTriggerState(node.Trigger.Key) == TriggerState.Paused)
 			{
 				btnPause.Text = "Resume";
 			}
@@ -135,7 +134,7 @@ namespace ClickForensics.Quartz.Manager
 				schedulerNode.ContextMenuStrip = ctxScheduler;
 				jobGroupsTreeView.Nodes.Add(schedulerNode);
 				TreeNode jobGroupsNode = schedulerNode.Nodes.Add("Job Groups");
-				string[] jobGroups = Scheduler.GetScheduler().JobGroupNames;
+				var jobGroups = Scheduler.GetScheduler().GetJobGroupNames();
 				foreach (string jobGroup in jobGroups)
 				{
 					TreeNode jobGroupNode = jobGroupsNode.Nodes.Add(jobGroup);
@@ -188,12 +187,13 @@ namespace ClickForensics.Quartz.Manager
 		private void addJobNodes(TreeNode node)
 		{
 			string group = node.Parent.Text;
-			string[] jobs = Scheduler.GetScheduler().GetJobNames(group);
-			foreach (string jobName in jobs)
+			var groupMatcher = GroupMatcher<JobKey>.GroupContains(group);
+			var jobKeys = Scheduler.GetScheduler().GetJobKeys(groupMatcher);
+			foreach (var jobKey in jobKeys)
 			{
 				try
 				{
-					IJobDetail detail = Scheduler.GetScheduler().GetJobDetail(new JobKey(jobName, group));
+					IJobDetail detail = Scheduler.GetScheduler().GetJobDetail(jobKey);
 					JobNode jobNode = new JobNode(detail);
 					node.Nodes.Add(jobNode);
 					addTriggerNodes(jobNode);
@@ -221,9 +221,9 @@ namespace ClickForensics.Quartz.Manager
 
 		private void addTriggerNodes(TreeNode treeNode)
 		{
-			AbstractTrigger[] triggers = Scheduler.GetScheduler().GetTriggersOfJob(treeNode.Text, treeNode.Parent.Parent.Text);
+			var triggers = Scheduler.GetScheduler().GetTriggersOfJob(new JobKey(treeNode.Text, treeNode.Parent.Parent.Text));
 			TreeNode triggersNode = treeNode.Nodes.Add("Triggers");
-			foreach (AbstractTrigger trigger in triggers)
+			foreach (var trigger in triggers)
 			{
 				TriggerNode node = new TriggerNode(trigger);
 				triggersNode.Nodes.Add(node);
@@ -313,9 +313,7 @@ namespace ClickForensics.Quartz.Manager
 		private void btnRunJobNow_Click(object sender, EventArgs e)
 		{
 			JobNode node = (JobNode)jobGroupsTreeView.SelectedNode;
-			string job = node.Detail.Name;
-			string group = node.Detail.Group;
-			Scheduler.GetScheduler().TriggerJobWithVolatileTrigger(job, group);
+			Scheduler.GetScheduler().TriggerJob(node.Detail.Key);
 		}
 
 		private void btnDeleteJob_Click(object sender, EventArgs e)
@@ -324,15 +322,13 @@ namespace ClickForensics.Quartz.Manager
 			if (selectedNode is JobNode)
 			{
 				JobNode node = (JobNode)jobGroupsTreeView.SelectedNode;
-				string job = node.Detail.Name;
-				string group = node.Detail.Group;
-				Scheduler.GetScheduler().DeleteJob(job, group);
+				Scheduler.GetScheduler().DeleteJob(node.Detail.Key);
 				jobGroupsTreeView.SelectedNode.Remove();
 
 			}
 			if (selectedNode is TriggerNode)
 			{
-				Scheduler.GetScheduler().UnscheduleJob(((TriggerNode)selectedNode).Trigger.Name, ((TriggerNode)selectedNode).Trigger.Group);
+				Scheduler.GetScheduler().UnscheduleJob(((TriggerNode)selectedNode).Trigger.Key);
 			}
 
 			//loadJobGroups();
@@ -341,15 +337,13 @@ namespace ClickForensics.Quartz.Manager
 		private void btnPause_Click(object sender, EventArgs e)
 		{
 			TriggerNode node = (TriggerNode)jobGroupsTreeView.SelectedNode;
-			string name = node.Trigger.Name;
-			string group = node.Trigger.Group;
-			if (Scheduler.GetScheduler().GetTriggerState(name, group) == TriggerState.Paused)
+			if (Scheduler.GetScheduler().GetTriggerState(node.Trigger.Key) == TriggerState.Paused)
 			{
-				Scheduler.GetScheduler().ResumeTrigger(name, group);
+				Scheduler.GetScheduler().ResumeTrigger(node.Trigger.Key);
 			}
 			else
 			{
-				Scheduler.GetScheduler().PauseTrigger(name, group);
+				Scheduler.GetScheduler().PauseTrigger(node.Trigger.Key);
 			}
 			setPauseButtonText();
 		}
@@ -361,7 +355,7 @@ namespace ClickForensics.Quartz.Manager
 			form.ShowDialog();
 			if (form.JobDetail != null && form.Trigger != null)
 			{
-				Scheduler.GetScheduler().RescheduleJob(node.Trigger.Name, node.Trigger.Group, form.Trigger);
+				Scheduler.GetScheduler().RescheduleJob(node.Trigger.Key, form.Trigger);
 				loadJobGroups();
 			}
 		}

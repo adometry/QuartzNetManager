@@ -12,6 +12,7 @@ using Quartz.Impl;
 using Quartz.Impl.Triggers;
 using Quartz.Job;
 using System.IO;
+using Quartz.Util;
 
 namespace ClickForensics.Quartz.Manager
 {
@@ -67,8 +68,8 @@ namespace ClickForensics.Quartz.Manager
 			setTriggerType();
 			txtCronExpression.Text = trigger.CronExpressionString;
 			txtTriggerDescription.Text = trigger.Description;
-			txtTriggerGroup.Text = trigger.Name.Group;
-			txtTriggerName.Text = trigger.Name;
+			txtTriggerGroup.Text = trigger.Key.Group;
+			txtTriggerName.Text = trigger.Key.Name;
 		}
 
 		private void setJobData(IJobDetail detail)
@@ -109,39 +110,40 @@ namespace ClickForensics.Quartz.Manager
 		private void btnAdd_Click(object sender, EventArgs e)
 		{
 			JobDetail = getJobDetail();
-			AbstractTrigger trigger = getTrigger();
-			Trigger.JobGroup = JobDetail.Key.Group;
-			Trigger.JobName = JobDetail.Key.Name;
+			ITrigger trigger = getTrigger(JobDetail);
 			this.Close();
 		}
 
 		private IJobDetail getJobDetail()
 		{
-			IJobDetail detail = new IJobDetail();
-			detail.Description = txtJobDescription.Text;
-			detail.Group = txtJobGroup.Text;
-			detail.JobDataMap = getJobDataMap();
-			detail.JobType = getJobType();
-			detail.Name = txtJobName.Text;
+			IJobDetail detail = JobBuilder
+				.NewJob()
+				.OfType(getJobType())
+				.WithDescription(txtJobDescription.Text)
+				.WithIdentity(new JobKey(txtJobName.Text, txtJobGroup.Text))
+				.UsingJobData(getJobDataMap())
+				.Build();
+
 			return detail;
 		}
 
-		private AbstractTrigger getTrigger()
+		private ITrigger getTrigger(IJobDetail jobDetail)
 		{
-			AbstractTrigger trigger;
+			var builder =
+				TriggerBuilder
+					.Create()
+					.ForJob(jobDetail)
+					.WithDescription(txtTriggerDescription.Text)
+					.WithIdentity(new TriggerKey(txtTriggerName.Text, txtTriggerGroup.Text));
+
 			if (cboTriggerType.SelectedText == "Simple")
 			{
-				trigger = new SimpleTrigger();
+				return builder.WithSchedule(SimpleScheduleBuilder.Create()).Build();
 			}
 			else
 			{
-				trigger = new CronTrigger();
-				((CronTrigger)trigger).CronExpressionString = txtCronExpression.Text;
+				return builder.WithSchedule(CronScheduleBuilder.CronSchedule(txtCronExpression.Text)).Build();
 			}
-			trigger.Description = txtTriggerDescription.Text;
-			trigger.Group = txtTriggerGroup.Text;
-			trigger.Name = txtTriggerName.Text;
-			return trigger;
 		}
 
 		private Type getJobType()
