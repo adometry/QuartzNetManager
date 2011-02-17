@@ -62,6 +62,11 @@ namespace ClickForensics.Quartz.Manager
                     pnlDetails.Controls.Add(new CronTriggerDisplay((CronTrigger)((TriggerNode)e.Node).Trigger));
                     jobDetailsToggle(true);
                 }
+                if (((TriggerNode)e.Node).Trigger is SimpleTrigger)
+                {
+                    pnlDetails.Controls.Add(new SimpleTriggerDisplay((SimpleTrigger)((TriggerNode)e.Node).Trigger));
+                    jobDetailsToggle(true);
+                }
                 btnEdit.Enabled = true;
             }
             else
@@ -91,6 +96,10 @@ namespace ClickForensics.Quartz.Manager
             using (ServerConnectForm form = new ServerConnectForm())
             {
                 form.ShowDialog();
+                if (form.Cancelled)
+                {
+                    return;
+                }
                 try
                 {
                     Scheduler = new QuartzScheduler(form.Server, form.Port, form.Scheduler);
@@ -145,7 +154,8 @@ namespace ClickForensics.Quartz.Manager
                 jobGroupsNode.Expand();
 
                 StripStatusLabel_Job_Groups.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm.ss");
-
+                loadOrphanJobs(schedulerNode);
+                loadStuckTriggers(schedulerNode);
             }
             finally
             {
@@ -153,6 +163,16 @@ namespace ClickForensics.Quartz.Manager
             }
 
 
+        }
+
+        private void loadStuckTriggers(SchedulerNode schedulerNode)
+        {
+            TreeNode jobGroupsNode = schedulerNode.Nodes.Add("Stuck Triggers");
+        }
+
+        private void loadOrphanJobs(SchedulerNode schedulerNode)
+        {
+            TreeNode jobGroupsNode = schedulerNode.Nodes.Add("Orphan Jobs");
         }
 
         private void jobDetailsToggle(bool isVisible)
@@ -199,6 +219,7 @@ namespace ClickForensics.Quartz.Manager
                 }
                 catch (Exception ex)
                 {
+                    node.Nodes.Add(string.Format("Unknown Job Type ({0})", jobName));
                     //TODO: Do something useful with this exception. Most likely cause is the client does not have a copy of a given dll and can't load the type.
                 }
             }
@@ -224,9 +245,24 @@ namespace ClickForensics.Quartz.Manager
             {
                 TriggerNode node = new TriggerNode(trigger);
                 triggersNode.Nodes.Add(node);
+                addCalendarNode(node);
             }
 
         }
+
+        private void addCalendarNode(TriggerNode node)
+        {
+            if (node.Trigger.CalendarName != null)
+            {
+                //TODO: Convert this to a CalendarNode and implement CalendarDisplay controls
+                node.Nodes.Add(node.Trigger.CalendarName);
+            }
+            else
+            {
+                node.Nodes.Add("No calendar found");
+            }
+        }
+
         private void updateRunningJobs()
         {
             try
