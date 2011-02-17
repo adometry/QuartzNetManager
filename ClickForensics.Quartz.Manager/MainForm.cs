@@ -155,6 +155,7 @@ namespace ClickForensics.Quartz.Manager
                 StripStatusLabel_Job_Groups.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm.ss");
                 loadOrphanJobs(schedulerNode);
                 loadStuckTriggers(schedulerNode);
+                loadCalendars(schedulerNode);
             }
             finally
             {
@@ -162,6 +163,16 @@ namespace ClickForensics.Quartz.Manager
             }
 
 
+        }
+
+        private static void loadCalendars(SchedulerNode schedulerNode)
+        {
+            TreeNode calendarsNode = schedulerNode.Nodes.Add("Calendars");
+            foreach (var calendarName in schedulerNode.Scheduler.GetScheduler().GetCalendarNames())
+            {
+                //TODO: make this a calendar node instead
+                calendarsNode.Nodes.Add(calendarName);
+            }
         }
 
         private void loadStuckTriggers(SchedulerNode schedulerNode)

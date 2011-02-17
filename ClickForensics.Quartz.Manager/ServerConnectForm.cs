@@ -15,6 +15,7 @@ namespace ClickForensics.Quartz.Manager
         {
             InitializeComponent();
             cboServer.DataSource = RegistryStore.GetLastConnections();
+            cboServer.DisplayMember = "ServerName";
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
