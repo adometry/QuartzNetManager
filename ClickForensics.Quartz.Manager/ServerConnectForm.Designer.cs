@@ -108,7 +108,7 @@
             this.cboServer.Name = "cboServer";
             this.cboServer.Size = new System.Drawing.Size(100, 21);
             this.cboServer.TabIndex = 1;
-            this.cboServer.SelectedIndexChanged += new System.EventHandler(this.cboServer_SelectedIndexChanged);
+            this.cboServer.SelectedIndexChanged += new System.EventHandler(cboServer_SelectedIndexChanged);
             // 
             // ServerConnectForm
             // 
@@ -131,6 +131,8 @@
             this.PerformLayout();
 
         }
+
+
 
         #endregion
 

@@ -35,15 +35,16 @@ namespace ClickForensics.Quartz.Manager
         public int Port { get; set; }
         public string Scheduler { get; set; }
         public bool Cancelled { get; set; }
-        private void cboServer_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void ServerConnectForm_Load(object sender, EventArgs e)
         {
             Cancelled = true;
 
+        }
+
+        private void cboServer_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            //TODO: Implement this
         }
     }
 }
