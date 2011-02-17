@@ -126,6 +126,7 @@
             this.Controls.Add(this.btnConnect);
             this.Name = "ServerConnectForm";
             this.Text = "ServerConnectForm";
+            this.Load += new System.EventHandler(this.ServerConnectForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -161,7 +161,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="QuartzScheduler.cs" />
-    <Compile Include="RegistryMRU.cs" />
+    <Compile Include="RegistryStore.cs" />
     <Compile Include="SchedulerNode.cs" />
     <Compile Include="ServerConnectForm.cs">
       <SubType>Form</SubType>

@@ -96,25 +96,24 @@ namespace ClickForensics.Quartz.Manager
             using (ServerConnectForm form = new ServerConnectForm())
             {
                 form.ShowDialog();
-                if (form.Cancelled)
+                if (!form.Cancelled)
                 {
-                    return;
-                }
-                try
-                {
-                    Scheduler = new QuartzScheduler(form.Server, form.Port, form.Scheduler);
-                    serverConnectStatusLabel.Text = string.Format("Connected to {0}", Scheduler.Address);
-                    connectToolStripMenuItem.Enabled = false;
-                    jobsToolStripMenuItem.Enabled = true;
-                    loadJobGroups();
-                    updateRunningJobs();
-                }
-                catch (SocketException ex)
-                {
-                    ErrorDialog dialog = new ErrorDialog();
-                    dialog.Message = string.Format("Unable to connect to scheduler {0} on {1}:{2}", form.Scheduler, form.Server, form.Port);
-                    dialog.Description = ex.Message;
-                    dialog.ShowDialog();
+                    try
+                    {
+                        Scheduler = new QuartzScheduler(form.Server, form.Port, form.Scheduler);
+                        serverConnectStatusLabel.Text = string.Format("Connected to {0}", Scheduler.Address);
+                        connectToolStripMenuItem.Enabled = false;
+                        jobsToolStripMenuItem.Enabled = true;
+                        loadJobGroups();
+                        updateRunningJobs();
+                    }
+                    catch (SocketException ex)
+                    {
+                        ErrorDialog dialog = new ErrorDialog();
+                        dialog.Message = string.Format("Unable to connect to scheduler {0} on {1}:{2}", form.Scheduler, form.Server, form.Port);
+                        dialog.Description = ex.Message;
+                        dialog.ShowDialog();
+                    }
                 }
                 form.Close();
             }

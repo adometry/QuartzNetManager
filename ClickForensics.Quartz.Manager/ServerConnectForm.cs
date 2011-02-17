@@ -19,12 +19,12 @@ namespace ClickForensics.Quartz.Manager
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Cancelled = true;
             this.Close();
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
+            Cancelled = false;
             Server = cboServer.Text;
             Port = int.Parse(txtPort.Text);
             Scheduler = txtScheduler.Text;
@@ -37,6 +37,12 @@ namespace ClickForensics.Quartz.Manager
         public bool Cancelled { get; set; }
         private void cboServer_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void ServerConnectForm_Load(object sender, EventArgs e)
+        {
+            Cancelled = true;
 
         }
     }
