@@ -11,6 +11,7 @@ using Quartz.Collection;
 using System.Net.Sockets;
 //using ClickForensics.Quartz.Jobs;
 using System.IO;
+using System.Reflection;
 
 namespace ClickForensics.Quartz.Manager
 {
@@ -421,6 +422,25 @@ namespace ClickForensics.Quartz.Manager
         private void timer_Refresh_Running_Jobs_Tick(object sender, EventArgs e)
         {
             updateRunningJobs();
+        }
+
+        private void addAssemblyMenuItem_Click(object sender, EventArgs e)
+        {
+            FileDialog dialog = new OpenFileDialog();
+            dialog.InitialDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            dialog.Filter = "Assemblies (*.dll)|*.dll";
+            dialog.ShowDialog();
+            string fileName = Path.GetFileName(dialog.FileName);
+            AssemblyRepository.AddAssembly(fileName);
+        }
+
+        private void deleteAssemblyMenuItem_Click(object sender, EventArgs e)
+        {
+            using (DeleteAssembliesForm form = new DeleteAssembliesForm())
+            {
+                form.ShowDialog();
+                form.Close();
+            }
         }
     }
 }

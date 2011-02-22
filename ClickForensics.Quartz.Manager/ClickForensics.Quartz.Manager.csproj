@@ -87,7 +87,14 @@
     <Compile Include="AddListenerForm.Designer.cs">
       <DependentUpon>AddListenerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AssemblyRepository.cs" />
     <Compile Include="ConnectionInfo.cs" />
+    <Compile Include="DeleteAssembliesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteAssembliesForm.Designer.cs">
+      <DependentUpon>DeleteAssembliesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SimpleTriggerDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddListenerForm.resx">
       <DependentUpon>AddListenerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteAssembliesForm.resx">
+      <DependentUpon>DeleteAssembliesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SimpleTriggerDisplay.resx">
       <DependentUpon>SimpleTriggerDisplay.cs</DependentUpon>

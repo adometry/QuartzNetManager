@@ -58,15 +58,15 @@ namespace ClickForensics.Quartz.Manager
             }
             //TODO: check that the key doesn't exist before trying to add. if it exists, move it to the top, but don't add it
 
-            for (int i = 4; i > 0; i--)
-            {
-                var previous = key.GetValue(string.Format("connection{0}", i - 1), null);
-                if (previous != null)
-                {
-                    key.SetValue(string.Format("connection{0}", i), previous);
+            //for (int i = 4; i > 0; i--)
+            //{
+            //    var previous = key.GetValue(string.Format("connection{0}", i - 1), null);
+            //    if (previous != null)
+            //    {
+            //        key.SetValue(string.Format("connection{0}", i), previous);
 
-                }
-            }
+            //    }
+            //}
             key.SetValue("connection0", info, RegistryValueKind.String);
 
         }

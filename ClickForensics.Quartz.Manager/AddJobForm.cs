@@ -30,13 +30,11 @@ namespace ClickForensics.Quartz.Manager
         }
         private void loadJobAssemblies()
         {
-            FileStream stream = File.OpenRead("JobAssemblies.txt");
-            StreamReader reader = new StreamReader(stream);
-            string line;
+            var assemblies = AssemblyRepository.GetAssemblies();
             SortedList<string, string> jobTypes = new SortedList<string, string>();
-            while ((line = reader.ReadLine()) != null)
+            foreach (var assemblyName in assemblies)
             {
-                Assembly assembly = Assembly.LoadFile(Environment.CurrentDirectory + "\\" + line);
+                Assembly assembly = Assembly.LoadFile(Environment.CurrentDirectory + "\\" + assemblyName);
                 foreach (Type type in assembly.GetTypes())
                 {
                     if (typeof(IJob).IsAssignableFrom(type) && type.IsClass)
