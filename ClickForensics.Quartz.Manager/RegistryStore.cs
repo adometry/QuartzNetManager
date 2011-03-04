@@ -27,7 +27,7 @@ namespace ClickForensics.Quartz.Manager
                 return lastConnections;
             }
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 ConnectionInfo info = ConnectionInfo.Parse((key.GetValue(string.Format("connection{0}", i), null) as string));
                 if (info != null)
