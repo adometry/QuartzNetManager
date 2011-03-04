@@ -21,6 +21,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2897FCF63BE418CF0FCD658118188BF4"
+        "OwnerKey" = "8:_0FE29295DCC442888A7872AF7AD116EA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2897FCF63BE418CF0FCD658118188BF4"
+        "OwnerKey" = "8:_8E1320DBDAEA0BC3DE13EEE60E6CD2AB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3DAE5C8DAFA58A50BA1AC4FAE556312D"
         "OwnerKey" = "8:_0FE29295DCC442888A7872AF7AD116EA"
         "MsmSig" = "8:_UNDEFINED"
@@ -28,31 +40,37 @@
         "Entry"
         {
         "MsmKey" = "8:_3DAE5C8DAFA58A50BA1AC4FAE556312D"
-        "OwnerKey" = "8:_6E67E572AAFBD63937AC84FA9E204CDC"
+        "OwnerKey" = "8:_8E1320DBDAEA0BC3DE13EEE60E6CD2AB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6E67E572AAFBD63937AC84FA9E204CDC"
+        "MsmKey" = "8:_8E1320DBDAEA0BC3DE13EEE60E6CD2AB"
         "OwnerKey" = "8:_0FE29295DCC442888A7872AF7AD116EA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0FE29295DCC442888A7872AF7AD116EA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8E1320DBDAEA0BC3DE13EEE60E6CD2AB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2897FCF63BE418CF0FCD658118188BF4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_3DAE5C8DAFA58A50BA1AC4FAE556312D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0FE29295DCC442888A7872AF7AD116EA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6E67E572AAFBD63937AC84FA9E204CDC"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -73,6 +91,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -89,6 +115,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -118,11 +152,42 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2897FCF63BE418CF0FCD658118188BF4"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:C5, Version=1.1.0.0, Culture=neutral, PublicKeyToken=06a1b38866503b69, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_2897FCF63BE418CF0FCD658118188BF4"
+                    {
+                    "Name" = "8:C5.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:C5.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_124E947A1D3342438C347971E13FC4F8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3DAE5C8DAFA58A50BA1AC4FAE556312D"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e"
+            "AssemblyAsmDisplayName" = "8:Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_3DAE5C8DAFA58A50BA1AC4FAE556312D"
@@ -149,14 +214,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6E67E572AAFBD63937AC84FA9E204CDC"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8E1320DBDAEA0BC3DE13EEE60E6CD2AB"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Quartz, Version=1.0.3.3, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Quartz, Version=2.0.0.25406, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6E67E572AAFBD63937AC84FA9E204CDC"
+                    "_8E1320DBDAEA0BC3DE13EEE60E6CD2AB"
                     {
                     "Name" = "8:Quartz.dll"
                     "Attributes" = "3:512"
@@ -235,7 +300,7 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:ClickForensics.Quartz.Manager.Setup"
+        "ProductName" = "8:Quartz.Net-2.0 Manager"
         "ProductCode" = "8:{9022D442-B545-46AE-AA13-8FAB824F340D}"
         "PackageCode" = "8:{FE9636A0-F3BE-4A33-B153-B66FC26458FB}"
         "UpgradeCode" = "8:{26F74FF8-741D-4585-9DAB-CF8BAFE8CF63}"
