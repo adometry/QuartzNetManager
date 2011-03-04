@@ -12,7 +12,7 @@ namespace ClickForensics.Quartz.Manager
 	{
 		public TriggerNode(ITrigger trigger)
 		{
-			Text = Trigger.Key.Name;
+			Text = trigger.Key.Name;
 
 			Trigger = trigger;
 		}

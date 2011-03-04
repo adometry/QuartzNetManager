@@ -28,7 +28,7 @@ namespace ClickForensics.Quartz.Manager
 			{
 				_scheduler = _schedulerFactory.GetScheduler();
 			}
-			catch (SchedulerException se)
+            catch (SchedulerException)
 			{
 				MessageBox.Show("Unable to connect to the specified server", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}

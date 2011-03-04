@@ -60,6 +60,9 @@
             this.listView_RunningJobs = new System.Windows.Forms.ListView();
             this.JobName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.JobDuration = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.jobAssembliesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addAssemblyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAssemblyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.ctxScheduler.SuspendLayout();
@@ -70,7 +73,8 @@
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.schedulerToolStripMenuItem,
             this.jobsToolStripMenuItem,
-            this.listenersStripMenuItem});
+            this.listenersStripMenuItem,
+            this.jobAssembliesToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.Size = new System.Drawing.Size(913, 24);
@@ -88,7 +92,7 @@
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
@@ -329,6 +333,29 @@
             // 
             this.JobDuration.Text = "Duration";
             // 
+            // jobAssembliesToolStripMenuItem
+            // 
+            this.jobAssembliesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addAssemblyMenuItem,
+            this.deleteAssemblyMenuItem});
+            this.jobAssembliesToolStripMenuItem.Name = "jobAssembliesToolStripMenuItem";
+            this.jobAssembliesToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
+            this.jobAssembliesToolStripMenuItem.Text = "Job Assemblies";
+            // 
+            // addAssemblyMenuItem
+            // 
+            this.addAssemblyMenuItem.Name = "addAssemblyMenuItem";
+            this.addAssemblyMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addAssemblyMenuItem.Text = "Add";
+            this.addAssemblyMenuItem.Click += new System.EventHandler(this.addAssemblyMenuItem_Click);
+            // 
+            // deleteAssemblyMenuItem
+            // 
+            this.deleteAssemblyMenuItem.Name = "deleteAssemblyMenuItem";
+            this.deleteAssemblyMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteAssemblyMenuItem.Text = "Delete";
+            this.deleteAssemblyMenuItem.Click += new System.EventHandler(this.deleteAssemblyMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -394,6 +421,9 @@
         private System.Windows.Forms.ListView listView_RunningJobs;
         private System.Windows.Forms.ColumnHeader JobName;
         private System.Windows.Forms.ColumnHeader JobDuration;
+        private System.Windows.Forms.ToolStripMenuItem jobAssembliesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addAssemblyMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteAssemblyMenuItem;
     }
 }
 

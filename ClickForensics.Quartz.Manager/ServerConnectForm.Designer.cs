@@ -31,11 +31,11 @@
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtServer = new System.Windows.Forms.TextBox();
             this.txtPort = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtScheduler = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.cboServer = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnConnect
@@ -66,13 +66,6 @@
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Server:";
-            // 
-            // txtServer
-            // 
-            this.txtServer.Location = new System.Drawing.Point(90, 9);
-            this.txtServer.Name = "txtServer";
-            this.txtServer.Size = new System.Drawing.Size(100, 20);
-            this.txtServer.TabIndex = 0;
             // 
             // txtPort
             // 
@@ -108,36 +101,48 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "Scheduler";
             // 
+            // cboServer
+            // 
+            this.cboServer.FormattingEnabled = true;
+            this.cboServer.Location = new System.Drawing.Point(90, 8);
+            this.cboServer.Name = "cboServer";
+            this.cboServer.Size = new System.Drawing.Size(100, 21);
+            this.cboServer.TabIndex = 1;
+            this.cboServer.SelectedIndexChanged += new System.EventHandler(cboServer_SelectedIndexChanged);
+            // 
             // ServerConnectForm
             // 
             this.AcceptButton = this.btnConnect;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(227, 141);
+            this.Controls.Add(this.cboServer);
             this.Controls.Add(this.txtScheduler);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtPort);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtServer);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConnect);
             this.Name = "ServerConnectForm";
             this.Text = "ServerConnectForm";
+            this.Load += new System.EventHandler(this.ServerConnectForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+
 
         #endregion
 
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtServer;
         private System.Windows.Forms.TextBox txtPort;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtScheduler;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cboServer;
     }
 }
