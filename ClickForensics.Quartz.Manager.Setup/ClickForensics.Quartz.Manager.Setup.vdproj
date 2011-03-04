@@ -80,6 +80,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -275,7 +288,7 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Quartz.Net Manager"
+        "ProductName" = "8:Quartz.Net-1.0 Manager"
         "ProductCode" = "8:{35E7E363-C413-4BCA-B0D6-1E0D7277F2EB}"
         "PackageCode" = "8:{E292DFAA-0752-4BA9-945D-F33FD0742798}"
         "UpgradeCode" = "8:{41236195-C6AD-462D-934D-034CDFCDB6E0}"
@@ -812,7 +825,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_22F9343A882E45B59179759884B708BD"
             {
-            "SourcePath" = "8:..\\ClickForensics.Quartz.Manager\\obj\\Release\\ClickForensics.Quartz.Manager.exe"
+            "SourcePath" = "8:..\\ClickForensics.Quartz.Manager\\obj\\Debug\\ClickForensics.Quartz.Manager.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D7658F850B314942942D9354F682D7DA"
