@@ -184,8 +184,31 @@ namespace ClickForensics.Quartz.Manager
 
         private void loadOrphanJobs(SchedulerNode schedulerNode)
         {
-            TreeNode jobGroupsNode = schedulerNode.Nodes.Add("Orphan Jobs");
+            TreeNode orphanJobsNode = schedulerNode.Nodes.Add("Orphan Jobs");
+            var groupNames = schedulerNode.Scheduler.GetScheduler().GetJobGroupNames();
+            foreach (var jobGroupName in groupNames)
+            {
+                var matcher = GroupMatcher<JobKey>.GroupEquals(jobGroupName);
+                var jobKeys = schedulerNode.Scheduler.GetScheduler().GetJobKeys(matcher);
+                foreach (var jobKey in jobKeys)
+                {
+                    try
+                    {
+                        var triggers = schedulerNode.Scheduler.GetScheduler().GetTriggersOfJob(jobKey);
+                        if (triggers.Count == 0)
+                        {
+                            orphanJobsNode.Nodes.Add(
+                                new JobNode(schedulerNode.Scheduler.GetScheduler().GetJobDetail(jobKey)));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        schedulerNode.Nodes.Add(string.Format("Unable to add job {0})", jobKey.Name));
+                    }
+                }
+            }
         }
+
 
         private void jobDetailsToggle(bool isVisible)
         {
