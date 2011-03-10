@@ -21,14 +21,7 @@ namespace ClickForensics.Quartz.Manager
         {
             InitializeComponent();
             jobGroupsTreeView.AfterSelect += new TreeViewEventHandler(jobGroupsTreeView_AfterSelect);
-            ctxScheduler.Opening += new CancelEventHandler(ctxScheduler_Opening);
             jobGroupsTreeView.MouseDown += new MouseEventHandler(jobGroupsTreeView_MouseDown);
-
-        }
-
-        void ctxScheduler_Opening(object sender, CancelEventArgs e)
-        {
-
         }
 
         void jobGroupsTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -80,9 +73,11 @@ namespace ClickForensics.Quartz.Manager
         private void setPauseButtonText()
         {
             TriggerNode node = (TriggerNode)jobGroupsTreeView.SelectedNode;
+            QuartzScheduler scheduler = getScheduler(node);
+
             string name = node.Trigger.Name;
             string group = node.Trigger.Group;
-            if (Scheduler.GetScheduler().GetTriggerState(name, group) == TriggerState.Paused)
+            if (scheduler.GetScheduler().GetTriggerState(name, group) == TriggerState.Paused)
             {
                 btnPause.Text = "Resume";
             }
@@ -101,11 +96,11 @@ namespace ClickForensics.Quartz.Manager
                 {
                     try
                     {
-                        Scheduler = new QuartzScheduler(form.Server, form.Port, form.Scheduler);
-                        serverConnectStatusLabel.Text = string.Format("Connected to {0}", Scheduler.Address);
+                        QuartzScheduler scheduler = new QuartzScheduler(form.Server, form.Port, form.Scheduler);
+                        serverConnectStatusLabel.Text = string.Format("Connected to {0}", scheduler.Address);
                         connectToolStripMenuItem.Enabled = false;
                         jobsToolStripMenuItem.Enabled = true;
-                        loadJobGroups();
+                        loadJobGroups(scheduler);
                         updateRunningJobs();
                     }
                     catch (SocketException ex)
@@ -118,31 +113,21 @@ namespace ClickForensics.Quartz.Manager
                 }
                 form.Close();
             }
-            //loadGlobalTriggers();
         }
 
-        //private void loadGlobalTriggers()
-        //{
-        //    foreach (IJobListener jobListener in Scheduler.GetScheduler().GetJobDetail(null,null)..GlobalJobListeners)
-        //    {
-        //        globalTriggersListView.Items.Add(jobListener.Name);
-        //    }
-        //}
-
-        private void loadJobGroups()
+        private void loadJobGroups(QuartzScheduler scheduler)
         {
-
             try
             {
                 this.Cursor = Cursors.WaitCursor;
 
                 jobDetailsToggle(false);
                 jobGroupsTreeView.Nodes.Clear();
-                SchedulerNode schedulerNode = new SchedulerNode(Scheduler);
+                SchedulerNode schedulerNode = new SchedulerNode(scheduler);
                 schedulerNode.ContextMenuStrip = ctxScheduler;
                 jobGroupsTreeView.Nodes.Add(schedulerNode);
                 TreeNode jobGroupsNode = schedulerNode.Nodes.Add("Job Groups");
-                string[] jobGroups = Scheduler.GetScheduler().JobGroupNames;
+                string[] jobGroups = schedulerNode.Scheduler.GetScheduler().JobGroupNames;
                 foreach (string jobGroup in jobGroups)
                 {
                     TreeNode jobGroupNode = jobGroupsNode.Nodes.Add(jobGroup);
@@ -162,8 +147,6 @@ namespace ClickForensics.Quartz.Manager
             {
                 this.Cursor = Cursors.Default;
             }
-
-
         }
 
         private static void loadCalendars(SchedulerNode schedulerNode)
@@ -183,7 +166,27 @@ namespace ClickForensics.Quartz.Manager
 
         private void loadOrphanJobs(SchedulerNode schedulerNode)
         {
-            TreeNode jobGroupsNode = schedulerNode.Nodes.Add("Orphan Jobs");
+            TreeNode orphanJobsNode = schedulerNode.Nodes.Add("Orphan Jobs");
+            var groupNames = schedulerNode.Scheduler.GetScheduler().JobGroupNames;
+            foreach (var jobGroupName in groupNames)
+            {
+                var jobNames = schedulerNode.Scheduler.GetScheduler().GetJobNames(jobGroupName);
+                foreach (var jobName in jobNames)
+                {
+                    try
+                    {
+                        var triggers = schedulerNode.Scheduler.GetScheduler().GetTriggersOfJob(jobName, jobGroupName);
+                        if (triggers.Length == 0)
+                        {
+                            orphanJobsNode.Nodes.Add(
+                                new JobNode(schedulerNode.Scheduler.GetScheduler().GetJobDetail(jobName, jobGroupName)));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
         }
 
         private void jobDetailsToggle(bool isVisible)
@@ -206,23 +209,18 @@ namespace ClickForensics.Quartz.Manager
                 }
             }
         }
-        //private void loadJobs()
-        //{
-        //    foreach (TreeNode node in jobGroupsTreeView.Nodes)
-        //    {
-        //        addJobNodes(node);
-        //    }
-        //}
 
         private void addJobNodes(TreeNode node)
         {
             string group = node.Parent.Text;
-            string[] jobs = Scheduler.GetScheduler().GetJobNames(group);
+            QuartzScheduler scheduler = getScheduler(node);
+
+            string[] jobs = scheduler.GetScheduler().GetJobNames(group);
             foreach (string jobName in jobs)
             {
                 try
                 {
-                    JobDetail detail = Scheduler.GetScheduler().GetJobDetail(jobName, group);
+                    JobDetail detail = scheduler.GetScheduler().GetJobDetail(jobName, group);
                     JobNode jobNode = new JobNode(detail);
                     node.Nodes.Add(jobNode);
                     addTriggerNodes(jobNode);
@@ -236,6 +234,7 @@ namespace ClickForensics.Quartz.Manager
             }
         }
 
+
         private void addListenerNodes(JobNode node)
         {
             string jobName = node.Text;
@@ -245,12 +244,13 @@ namespace ClickForensics.Quartz.Manager
             {
                 node.Text = string.Format("JL {0}", listenerNames);
             }
-            //ISet set = Scheduler.GetScheduler().JobListenerNames;
         }
 
         private void addTriggerNodes(TreeNode treeNode)
         {
-            Trigger[] triggers = Scheduler.GetScheduler().GetTriggersOfJob(treeNode.Text, treeNode.Parent.Parent.Text);
+            QuartzScheduler scheduler = getScheduler(treeNode);
+
+            Trigger[] triggers = scheduler.GetScheduler().GetTriggersOfJob(treeNode.Text, treeNode.Parent.Parent.Text);
             TreeNode triggersNode = treeNode.Nodes.Add("Triggers");
             foreach (Trigger trigger in triggers)
             {
@@ -258,7 +258,6 @@ namespace ClickForensics.Quartz.Manager
                 triggersNode.Nodes.Add(node);
                 addCalendarNode(node);
             }
-
         }
 
         private void addCalendarNode(TriggerNode node)
@@ -283,14 +282,18 @@ namespace ClickForensics.Quartz.Manager
                 timer_Refresh_Running_Jobs.Stop();
 
                 listView_RunningJobs.Items.Clear();
-
-                DataTable table = Scheduler.GetRunningJobs();
-                foreach (DataRow row in table.Rows)
+                List<QuartzScheduler> schedulers = getAllSchedulers();
+                foreach (var quartzScheduler in schedulers)
                 {
-                    //JobName JobDuration
-                    ListViewItem item = new ListViewItem(new string[] { Convert.ToString(row["JobName"]), Convert.ToString(row["Runtime"]) });
-                    listView_RunningJobs.Items.Add(item);
+                    DataTable table = quartzScheduler.GetRunningJobs();
+                    foreach (DataRow row in table.Rows)
+                    {
+                        //JobName JobDuration
+                        ListViewItem item = new ListViewItem(new string[] { Convert.ToString(row["JobName"]), Convert.ToString(row["Runtime"]) });
+                        listView_RunningJobs.Items.Add(item);
+                    }
                 }
+
                 StripStatusLabel_Jobs_Refresh_date.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm.ss");
 
 
@@ -306,31 +309,10 @@ namespace ClickForensics.Quartz.Manager
                 this.Cursor = Cursors.Default;
             }
         }
-        public QuartzScheduler Scheduler { get; set; }
 
-        private void addGlobalListenerToolStripMenuItem_Click(object sender, EventArgs e)
+        private List<QuartzScheduler> getAllSchedulers()
         {
-            AddListenerForm form = new AddListenerForm();
-            form.ListenerInterface = typeof(IJobListener);
-            form.ShowDialog();
-            JobDataMap map = new JobDataMap();
-            map.Add("type", form.ListenerType);
-            //Scheduler.ScheduleOneTimeJob(typeof(AddJobListenerJob), map, 0);
-            loadJobGroups();
-        }
-
-        private void addJobListenerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TreeNode selectedNode = jobGroupsTreeView.SelectedNode;
-            if (selectedNode != null && selectedNode is JobNode)
-            {
-                AddListenerForm form = new AddListenerForm();
-                form.ListenerInterface = typeof(IJobListener);
-                form.ShowDialog();
-                //JobHistoryListener listener = new JobHistoryListener();
-                //listener.Name = null;
-                //((JobNode)selectedNode).Detail.AddJobListener();
-            }
+            throw new NotImplementedException();
         }
 
         private void addJobToolStripMenuItem_Click(object sender, EventArgs e)
@@ -339,9 +321,15 @@ namespace ClickForensics.Quartz.Manager
             form.ShowDialog();
             if (form.JobDetail != null && form.Trigger != null)
             {
-                Scheduler.GetScheduler().ScheduleJob(form.JobDetail, form.Trigger);
-                loadJobGroups();
+                QuartzScheduler scheduler = getSelectedScheduler();
+                scheduler.GetScheduler().ScheduleJob(form.JobDetail, form.Trigger);
+                loadJobGroups(scheduler);
             }
+        }
+
+        private QuartzScheduler getSelectedScheduler()
+        {
+            throw new NotImplementedException();
         }
 
         private void btnRefreshRunningJobs_Click(object sender, EventArgs e)
@@ -351,15 +339,21 @@ namespace ClickForensics.Quartz.Manager
 
         private void btnRefreshJobGroups_Click(object sender, EventArgs e)
         {
-            loadJobGroups();
+            List<QuartzScheduler> schedulers = getAllSchedulers();
+            foreach (var quartzScheduler in schedulers)
+            {
+                loadJobGroups(quartzScheduler);
+            }
         }
 
         private void btnRunJobNow_Click(object sender, EventArgs e)
         {
             JobNode node = (JobNode)jobGroupsTreeView.SelectedNode;
+            QuartzScheduler scheduler = getScheduler(node);
+
             string job = node.Detail.Name;
             string group = node.Detail.Group;
-            Scheduler.GetScheduler().TriggerJobWithVolatileTrigger(job, group);
+            scheduler.GetScheduler().TriggerJobWithVolatileTrigger(job, group);
         }
 
         private void btnDeleteJob_Click(object sender, EventArgs e)
@@ -368,45 +362,66 @@ namespace ClickForensics.Quartz.Manager
             if (selectedNode is JobNode)
             {
                 JobNode node = (JobNode)jobGroupsTreeView.SelectedNode;
+                QuartzScheduler scheduler = getScheduler(node);
                 string job = node.Detail.Name;
                 string group = node.Detail.Group;
-                Scheduler.GetScheduler().DeleteJob(job, group);
+                scheduler.GetScheduler().DeleteJob(job, group);
                 jobGroupsTreeView.SelectedNode.Remove();
 
             }
             if (selectedNode is TriggerNode)
             {
-                Scheduler.GetScheduler().UnscheduleJob(((TriggerNode)selectedNode).Trigger.Name, ((TriggerNode)selectedNode).Trigger.Group);
-            }
+                TriggerNode node = (TriggerNode)selectedNode;
+                QuartzScheduler scheduler = getScheduler(node);
 
-            //loadJobGroups();
+                scheduler.GetScheduler().UnscheduleJob(node.Trigger.Name, ((TriggerNode)selectedNode).Trigger.Group);
+            }
         }
+
+
 
         private void btnPause_Click(object sender, EventArgs e)
         {
             TriggerNode node = (TriggerNode)jobGroupsTreeView.SelectedNode;
+            QuartzScheduler scheduler = getScheduler(node);
             string name = node.Trigger.Name;
             string group = node.Trigger.Group;
-            if (Scheduler.GetScheduler().GetTriggerState(name, group) == TriggerState.Paused)
+            if (scheduler.GetScheduler().GetTriggerState(name, group) == TriggerState.Paused)
             {
-                Scheduler.GetScheduler().ResumeTrigger(name, group);
+                scheduler.GetScheduler().ResumeTrigger(name, group);
             }
             else
             {
-                Scheduler.GetScheduler().PauseTrigger(name, group);
+                scheduler.GetScheduler().PauseTrigger(name, group);
             }
             setPauseButtonText();
+        }
+
+        private QuartzScheduler getScheduler(TreeNode node)
+        {
+            throw new NotImplementedException();
+        }
+
+        private QuartzScheduler getScheduler(TriggerNode node)
+        {
+            throw new NotImplementedException();
+        }
+
+        private QuartzScheduler getScheduler(JobNode node)
+        {
+            throw new NotImplementedException();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             TriggerNode node = (TriggerNode)jobGroupsTreeView.SelectedNode;
+            QuartzScheduler scheduler = getScheduler(node);
             AddJobForm form = new AddJobForm(node);
             form.ShowDialog();
             if (form.JobDetail != null && form.Trigger != null)
             {
-                Scheduler.GetScheduler().RescheduleJob(node.Trigger.Name, node.Trigger.Group, form.Trigger);
-                loadJobGroups();
+                scheduler.GetScheduler().RescheduleJob(node.Trigger.Name, node.Trigger.Group, form.Trigger);
+                loadJobGroups(scheduler);
             }
         }
 
