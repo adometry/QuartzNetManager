@@ -13,6 +13,7 @@ namespace ClickForensics.Quartz.Manager
         {
             this.Text = scheduler.Address;
             Scheduler = scheduler;
+            Name = this.Scheduler.Address;
         }
         public QuartzScheduler Scheduler { get; private set; }
 

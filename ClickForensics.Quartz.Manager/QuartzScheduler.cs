@@ -11,6 +11,8 @@ using System.Collections;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml.Linq;
+using log4net;
+using System.Reflection;
 
 namespace ClickForensics.Quartz.Manager
 {
@@ -25,8 +27,9 @@ namespace ClickForensics.Quartz.Manager
             {
                 _scheduler = _schedulerFactory.GetScheduler();
             }
-            catch (SchedulerException)
+            catch (SchedulerException ex)
             {
+                _Log.Error(string.Format("Unable to connect to scheduler {0}", Address), ex);
                 MessageBox.Show("Unable to connect to the specified server", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
@@ -34,7 +37,7 @@ namespace ClickForensics.Quartz.Manager
         private NameValueCollection getProperties(string address)
         {
             NameValueCollection properties = new NameValueCollection();
-            properties["quartz.scheduler.instanceName"] = "RemoteClient";
+            properties["quartz.scheduler.instanceName"] = "RemoteClient"+DateTime.Now.ToString("yyyyMMddHHmmss");
             properties["quartz.scheduler.proxy"] = "true";
             properties["quartz.threadPool.threadCount"] = "0";
             properties["quartz.scheduler.proxy.address"] = address;
@@ -137,6 +140,7 @@ namespace ClickForensics.Quartz.Manager
             catch (Exception ex)
             {
                 //TODO: Let the user know we couldn't load the running jobs.
+                _Log.Error("Error loading running jobs.", ex);
             }
 
             return table;
@@ -307,5 +311,6 @@ namespace ClickForensics.Quartz.Manager
                 );
             return simpleTrigger;
         }
+        private static readonly ILog _Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
     }
 }

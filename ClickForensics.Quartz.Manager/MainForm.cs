@@ -12,6 +12,7 @@ using System.Net.Sockets;
 //using ClickForensics.Quartz.Jobs;
 using System.IO;
 using System.Reflection;
+using log4net;
 
 namespace ClickForensics.Quartz.Manager
 {
@@ -98,7 +99,6 @@ namespace ClickForensics.Quartz.Manager
                     {
                         QuartzScheduler scheduler = new QuartzScheduler(form.Server, form.Port, form.Scheduler);
                         serverConnectStatusLabel.Text = string.Format("Connected to {0}", scheduler.Address);
-                        connectToolStripMenuItem.Enabled = false;
                         jobsToolStripMenuItem.Enabled = true;
                         loadJobGroups(scheduler);
                         updateRunningJobs();
@@ -122,8 +122,13 @@ namespace ClickForensics.Quartz.Manager
                 this.Cursor = Cursors.WaitCursor;
 
                 jobDetailsToggle(false);
-                jobGroupsTreeView.Nodes.Clear();
+
                 SchedulerNode schedulerNode = new SchedulerNode(scheduler);
+                if (jobGroupsTreeView.Nodes.ContainsKey(schedulerNode.Name))
+                {
+                    jobGroupsTreeView.Nodes.RemoveByKey(schedulerNode.Name);
+                }
+                
                 schedulerNode.ContextMenuStrip = ctxScheduler;
                 jobGroupsTreeView.Nodes.Add(schedulerNode);
                 TreeNode jobGroupsNode = schedulerNode.Nodes.Add("Job Groups");
@@ -184,6 +189,8 @@ namespace ClickForensics.Quartz.Manager
                     }
                     catch (Exception ex)
                     {
+                        _Log.Error("Error loading orphan jobs.", ex);
+
                     }
                 }
             }
@@ -230,6 +237,7 @@ namespace ClickForensics.Quartz.Manager
                 {
                     node.Nodes.Add(string.Format("Unknown Job Type ({0})", jobName));
                     //TODO: Do something useful with this exception. Most likely cause is the client does not have a copy of a given dll and can't load the type.
+                    _Log.Error("Error loading jobs.", ex);
                 }
             }
         }
@@ -288,7 +296,6 @@ namespace ClickForensics.Quartz.Manager
                     DataTable table = quartzScheduler.GetRunningJobs();
                     foreach (DataRow row in table.Rows)
                     {
-                        //JobName JobDuration
                         ListViewItem item = new ListViewItem(new string[] { Convert.ToString(row["JobName"]), Convert.ToString(row["Runtime"]) });
                         listView_RunningJobs.Items.Add(item);
                     }
@@ -296,14 +303,16 @@ namespace ClickForensics.Quartz.Manager
 
                 StripStatusLabel_Jobs_Refresh_date.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm.ss");
 
-
-                //reset the timer ( documentation not clear if .stop = restart @ 0 in timing, but changing the interval sure should do that. )
                 int timer_was = timer_Refresh_Running_Jobs.Interval;
                 timer_Refresh_Running_Jobs.Interval = timer_was + 1;
                 timer_Refresh_Running_Jobs.Interval = timer_was;
 
                 timer_Refresh_Running_Jobs.Start();
             }
+                catch(Exception ex)
+                {
+                    _Log.Error("Unable to load running jobs", ex);
+                }
             finally
             {
                 this.Cursor = Cursors.Default;
@@ -312,7 +321,12 @@ namespace ClickForensics.Quartz.Manager
 
         private List<QuartzScheduler> getAllSchedulers()
         {
-            throw new NotImplementedException();
+            List<QuartzScheduler> schedulers = new List<QuartzScheduler>();
+            foreach (var node in jobGroupsTreeView.Nodes)
+            {
+                schedulers.Add(((SchedulerNode)node).Scheduler);
+            }
+            return schedulers;
         }
 
         private void addJobToolStripMenuItem_Click(object sender, EventArgs e)
@@ -329,7 +343,8 @@ namespace ClickForensics.Quartz.Manager
 
         private QuartzScheduler getSelectedScheduler()
         {
-            throw new NotImplementedException();
+            TreeNode node= jobGroupsTreeView.SelectedNode;
+            return getScheduler(node);
         }
 
         private void btnRefreshRunningJobs_Click(object sender, EventArgs e)
@@ -378,8 +393,6 @@ namespace ClickForensics.Quartz.Manager
             }
         }
 
-
-
         private void btnPause_Click(object sender, EventArgs e)
         {
             TriggerNode node = (TriggerNode)jobGroupsTreeView.SelectedNode;
@@ -399,17 +412,11 @@ namespace ClickForensics.Quartz.Manager
 
         private QuartzScheduler getScheduler(TreeNode node)
         {
-            throw new NotImplementedException();
-        }
-
-        private QuartzScheduler getScheduler(TriggerNode node)
-        {
-            throw new NotImplementedException();
-        }
-
-        private QuartzScheduler getScheduler(JobNode node)
-        {
-            throw new NotImplementedException();
+            if (node is SchedulerNode)
+            {
+                return ((SchedulerNode)node).Scheduler;
+            }
+            return getScheduler(node.Parent);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -457,5 +464,6 @@ namespace ClickForensics.Quartz.Manager
                 form.Close();
             }
         }
+        private static readonly ILog _Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);        
     }
 }
