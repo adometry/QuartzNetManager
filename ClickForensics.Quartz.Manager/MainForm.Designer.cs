@@ -112,45 +112,6 @@
             this.addJobToolStripMenuItem.Text = "Add";
             this.addJobToolStripMenuItem.Click += new System.EventHandler(this.addJobToolStripMenuItem_Click);
             // 
-            // listenersStripMenuItem
-            // 
-            this.listenersStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.globalListenersToolStripMenuItem,
-            this.addJobListenerToolStripMenuItem});
-            this.listenersStripMenuItem.Enabled = false;
-            this.listenersStripMenuItem.Name = "listenersStripMenuItem";
-            this.listenersStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.listenersStripMenuItem.Text = "Listeners";
-            // 
-            // globalListenersToolStripMenuItem
-            // 
-            this.globalListenersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addGlobalJobListenerToolStripMenuItem,
-            this.addTriggerListenerToolStripMenuItem});
-            this.globalListenersToolStripMenuItem.Name = "globalListenersToolStripMenuItem";
-            this.globalListenersToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.globalListenersToolStripMenuItem.Text = "Global";
-            // 
-            // addGlobalJobListenerToolStripMenuItem
-            // 
-            this.addGlobalJobListenerToolStripMenuItem.Name = "addGlobalJobListenerToolStripMenuItem";
-            this.addGlobalJobListenerToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.addGlobalJobListenerToolStripMenuItem.Text = "Add Job Listener";
-            this.addGlobalJobListenerToolStripMenuItem.Click += new System.EventHandler(this.addGlobalListenerToolStripMenuItem_Click);
-            // 
-            // addTriggerListenerToolStripMenuItem
-            // 
-            this.addTriggerListenerToolStripMenuItem.Name = "addTriggerListenerToolStripMenuItem";
-            this.addTriggerListenerToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.addTriggerListenerToolStripMenuItem.Text = "Add Trigger Listener";
-            // 
-            // addJobListenerToolStripMenuItem
-            // 
-            this.addJobListenerToolStripMenuItem.Name = "addJobListenerToolStripMenuItem";
-            this.addJobListenerToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.addJobListenerToolStripMenuItem.Text = "Add Job Listener";
-            this.addJobListenerToolStripMenuItem.Click += new System.EventHandler(this.addJobListenerToolStripMenuItem_Click);
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
