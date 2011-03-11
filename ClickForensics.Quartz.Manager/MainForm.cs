@@ -99,7 +99,6 @@ namespace ClickForensics.Quartz.Manager
                     {
                         QuartzScheduler scheduler = new QuartzScheduler(form.Server, form.Port, form.Scheduler);
                         serverConnectStatusLabel.Text = string.Format("Connected to {0}", scheduler.Address);
-                        connectToolStripMenuItem.Enabled = false;
                         jobsToolStripMenuItem.Enabled = true;
                         loadJobGroups(scheduler);
                         updateRunningJobs();
