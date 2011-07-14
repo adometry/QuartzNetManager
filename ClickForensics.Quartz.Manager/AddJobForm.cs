@@ -115,7 +115,7 @@ namespace ClickForensics.Quartz.Manager
         private IJobDetail getJobDetail()
         {
             IJobDetail detail = JobBuilder
-                .NewJob()
+                .Create()
                 .OfType(getJobType())
                 .WithDescription(txtJobDescription.Text)
                 .WithIdentity(new JobKey(txtJobName.Text, txtJobGroup.Text))

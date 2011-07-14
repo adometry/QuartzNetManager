@@ -51,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B9E7DEFA02B1EA7ED4BDCBA0CCCEC706"
+        "OwnerKey" = "8:_0FE29295DCC442888A7872AF7AD116EA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0FE29295DCC442888A7872AF7AD116EA"
         "MsmSig" = "8:_UNDEFINED"
@@ -65,6 +71,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_2897FCF63BE418CF0FCD658118188BF4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B9E7DEFA02B1EA7ED4BDCBA0CCCEC706"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -98,6 +110,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -122,6 +147,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
     }
@@ -218,7 +256,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Quartz, Version=2.0.0.25406, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Quartz, Version=2.0.0.100, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_8E1320DBDAEA0BC3DE13EEE60E6CD2AB"
@@ -228,6 +266,37 @@
                     }
                 }
             "SourcePath" = "8:Quartz.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_124E947A1D3342438C347971E13FC4F8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B9E7DEFA02B1EA7ED4BDCBA0CCCEC706"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_B9E7DEFA02B1EA7ED4BDCBA0CCCEC706"
+                    {
+                    "Name" = "8:log4net.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:log4net.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_124E947A1D3342438C347971E13FC4F8"
@@ -302,7 +371,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Quartz.Net-2.0 Manager"
         "ProductCode" = "8:{9022D442-B545-46AE-AA13-8FAB824F340D}"
-        "PackageCode" = "8:{FE9636A0-F3BE-4A33-B153-B66FC26458FB}"
+        "PackageCode" = "8:{1655B15A-9FE3-4F20-8B9B-32E9DC05C99E}"
         "UpgradeCode" = "8:{26F74FF8-741D-4585-9DAB-CF8BAFE8CF63}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -823,7 +892,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0FE29295DCC442888A7872AF7AD116EA"
             {
-            "SourcePath" = "8:..\\ClickForensics.Quartz.Manager\\obj\\Debug\\ClickForensics.Quartz.Manager.exe"
+            "SourcePath" = "8:..\\ClickForensics.Quartz.Manager\\obj\\Release\\ClickForensics.Quartz.Manager.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_124E947A1D3342438C347971E13FC4F8"
