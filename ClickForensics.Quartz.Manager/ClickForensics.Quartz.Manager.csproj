@@ -57,9 +57,8 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Quartz, Version=2.0.0.29445, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\quartznet\build\4.0\Debug\Quartz.Server\Quartz.dll</HintPath>
+    <Reference Include="Quartz">
+      <HintPath>..\lib\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

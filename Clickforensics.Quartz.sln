@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickForensics.Quartz.Manager", "ClickForensics.Quartz.Manager\ClickForensics.Quartz.Manager.csproj", "{D23DACFA-11A1-480E-A6C4-1F37B564523D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickForensics.Quartz.Manager.Tests", "ClickForensics.Quartz.Manager.Tests\ClickForensics.Quartz.Manager.Tests.csproj", "{B8B682CC-3E41-4810-86BF-B6728FB26D3A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickForensics.Quartz.Manager.Wpf", "ClickForensics.Quartz.Manager.Wpf\ClickForensics.Quartz.Manager.Wpf.csproj", "{E690105C-C13C-4DA3-A98D-74C701BBBEDD}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ClickForensics.Quartz.Manager.Setup", "ClickForensics.Quartz.Manager.Setup\ClickForensics.Quartz.Manager.Setup.vdproj", "{756A6A07-BC4D-4812-997F-B06FED5D6B41}"
@@ -29,14 +27,6 @@ Global
 		{D23DACFA-11A1-480E-A6C4-1F37B564523D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D23DACFA-11A1-480E-A6C4-1F37B564523D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D23DACFA-11A1-480E-A6C4-1F37B564523D}.Release|x86.ActiveCfg = Release|Any CPU
-		{B8B682CC-3E41-4810-86BF-B6728FB26D3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8B682CC-3E41-4810-86BF-B6728FB26D3A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{B8B682CC-3E41-4810-86BF-B6728FB26D3A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{B8B682CC-3E41-4810-86BF-B6728FB26D3A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B8B682CC-3E41-4810-86BF-B6728FB26D3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8B682CC-3E41-4810-86BF-B6728FB26D3A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B8B682CC-3E41-4810-86BF-B6728FB26D3A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{B8B682CC-3E41-4810-86BF-B6728FB26D3A}.Release|x86.ActiveCfg = Release|Any CPU
 		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Debug|Mixed Platforms.Build.0 = Debug|x86
