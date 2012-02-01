@@ -166,7 +166,22 @@ namespace ClickForensics.Quartz.Manager
 
         private void loadStuckTriggers(SchedulerNode schedulerNode)
         {
-            TreeNode jobGroupsNode = schedulerNode.Nodes.Add("Stuck Triggers");
+            TreeNode stuckTriggersNode = schedulerNode.Nodes.Add("Stuck Triggers");
+            var triggerGroupNames = schedulerNode.Scheduler.GetScheduler().TriggerGroupNames;
+            foreach (var triggerGroupName in triggerGroupNames)
+            {
+                var triggerNames = schedulerNode.Scheduler.GetScheduler().GetTriggerNames(triggerGroupName);
+                foreach (var triggerName in triggerNames)
+                {
+                    var state = schedulerNode.Scheduler.GetScheduler().GetTriggerState(triggerName, triggerGroupName);
+                    var trigger = schedulerNode.Scheduler.GetScheduler().GetTrigger(triggerName, triggerGroupName);
+                    if (state == TriggerState.Complete)
+                    {
+                        stuckTriggersNode.Nodes.Add(new TriggerNode(trigger));
+                    }
+                }
+            }
+
         }
 
         private void loadOrphanJobs(SchedulerNode schedulerNode)
@@ -398,6 +413,7 @@ namespace ClickForensics.Quartz.Manager
                 QuartzScheduler scheduler = getScheduler(node);
 
                 scheduler.GetScheduler().UnscheduleJob(node.Trigger.Name, ((TriggerNode)selectedNode).Trigger.Group);
+                selectedNode.Remove();
             }
         }
 
