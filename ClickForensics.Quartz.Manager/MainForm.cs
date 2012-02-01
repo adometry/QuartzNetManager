@@ -128,7 +128,7 @@ namespace ClickForensics.Quartz.Manager
                 {
                     jobGroupsTreeView.Nodes.RemoveByKey(schedulerNode.Name);
                 }
-                
+
                 schedulerNode.ContextMenuStrip = ctxScheduler;
                 jobGroupsTreeView.Nodes.Add(schedulerNode);
                 TreeNode jobGroupsNode = schedulerNode.Nodes.Add("Job Groups");
@@ -212,6 +212,14 @@ namespace ClickForensics.Quartz.Manager
                 if (node != null)
                 {
                     jobGroupsTreeView.SelectedNode = node;
+                    if (node.Text == "Orphan Jobs")
+                    {
+                        ctxScheduler.Items["deleteToolStripMenuItem"].Enabled = true;
+                    }
+                    else
+                    {
+                        ctxScheduler.Items["deleteToolStripMenuItem"].Enabled = false;
+                    }
                     ctxScheduler.Show(jobGroupsTreeView, e.Location);
                 }
             }
@@ -309,10 +317,10 @@ namespace ClickForensics.Quartz.Manager
 
                 timer_Refresh_Running_Jobs.Start();
             }
-                catch(Exception ex)
-                {
-                    _Log.Error("Unable to load running jobs", ex);
-                }
+            catch (Exception ex)
+            {
+                _Log.Error("Unable to load running jobs", ex);
+            }
             finally
             {
                 this.Cursor = Cursors.Default;
@@ -343,7 +351,7 @@ namespace ClickForensics.Quartz.Manager
 
         private QuartzScheduler getSelectedScheduler()
         {
-            TreeNode node= jobGroupsTreeView.SelectedNode;
+            TreeNode node = jobGroupsTreeView.SelectedNode;
             return getScheduler(node);
         }
 
@@ -464,6 +472,21 @@ namespace ClickForensics.Quartz.Manager
                 form.Close();
             }
         }
-        private static readonly ILog _Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);        
+        private static readonly ILog _Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QuartzScheduler scheduler = ((SchedulerNode)((TreeView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).SelectedNode.Parent).Scheduler;
+            var node = ((TreeView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).SelectedNode;
+            foreach (var item in node.Nodes)
+            {
+                if (item is JobNode)
+                {
+                    scheduler.GetScheduler().DeleteJob(((JobNode)item).Detail.Name, ((JobNode)item).Detail.Group);
+                    node.Nodes.Remove((JobNode)item);
+                }
+            }
+
+        }
     }
 }

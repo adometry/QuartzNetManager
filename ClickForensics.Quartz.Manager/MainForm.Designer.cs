@@ -58,6 +58,7 @@
             this.listView_RunningJobs = new System.Windows.Forms.ListView();
             this.JobName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.JobDuration = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.ctxScheduler.SuspendLayout();
@@ -86,7 +87,7 @@
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
@@ -102,7 +103,7 @@
             // addJobToolStripMenuItem
             // 
             this.addJobToolStripMenuItem.Name = "addJobToolStripMenuItem";
-            this.addJobToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
+            this.addJobToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.addJobToolStripMenuItem.Text = "Add";
             this.addJobToolStripMenuItem.Click += new System.EventHandler(this.addJobToolStripMenuItem_Click);
             // 
@@ -273,14 +274,15 @@
             // ctxScheduler
             // 
             this.ctxScheduler.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.backupToolStripMenuItem});
+            this.backupToolStripMenuItem,
+            this.deleteToolStripMenuItem});
             this.ctxScheduler.Name = "ctxScheduler";
-            this.ctxScheduler.Size = new System.Drawing.Size(109, 26);
+            this.ctxScheduler.Size = new System.Drawing.Size(153, 70);
             // 
             // backupToolStripMenuItem
             // 
             this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-            this.backupToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.backupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.backupToolStripMenuItem.Text = "Backup";
             this.backupToolStripMenuItem.Click += new System.EventHandler(this.backupToolStripMenuItem_Click);
             // 
@@ -310,6 +312,13 @@
             // JobDuration
             // 
             this.JobDuration.Text = "Duration";
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -374,6 +383,7 @@
         private System.Windows.Forms.ToolStripMenuItem jobAssembliesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addAssemblyMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAssemblyMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }
 
