@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickForensics.Quartz.Manager", "ClickForensics.Quartz.Manager\ClickForensics.Quartz.Manager.csproj", "{D23DACFA-11A1-480E-A6C4-1F37B564523D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickForensics.Quartz.Manager.Wpf", "ClickForensics.Quartz.Manager.Wpf\ClickForensics.Quartz.Manager.Wpf.csproj", "{E690105C-C13C-4DA3-A98D-74C701BBBEDD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,16 +23,6 @@ Global
 		{D23DACFA-11A1-480E-A6C4-1F37B564523D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D23DACFA-11A1-480E-A6C4-1F37B564523D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D23DACFA-11A1-480E-A6C4-1F37B564523D}.Release|x86.ActiveCfg = Release|Any CPU
-		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Debug|x86.ActiveCfg = Debug|x86
-		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Debug|x86.Build.0 = Debug|x86
-		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Release|Any CPU.ActiveCfg = Release|x86
-		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Release|Mixed Platforms.Build.0 = Release|x86
-		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Release|x86.ActiveCfg = Release|x86
-		{E690105C-C13C-4DA3-A98D-74C701BBBEDD}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
